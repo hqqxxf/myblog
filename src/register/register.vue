@@ -1,29 +1,29 @@
-<style lang="less">
-  .wrap{
-    width:80%;
-    margin:0 auto;
-  }
-  
-</style>
-<template>
-  <div class="wrap">
-    <h1>注册</h1>
-    <el-form :model="regForm" :rules="regRules" ref="regForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="用户名" prop="age">
-        <el-input v-model="regForm.username"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="pass">
-        <el-input type="password" v-model="regForm.pass" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="确认密码" prop="checkPass">
-        <el-input type="password" v-model="regForm.checkPass" auto-complete="off"></el-input>
-      </el-form-item>
+<style lang="less" src="../../static/css/wrap.less"></style>
 
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('regForm')">提交</el-button>
-        <el-button @click="resetForm('regForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
+<template>
+  <div>
+    <my-header></my-header>
+    <!--<my-slide-nav></my-slide-nav>-->
+    <div class="form-wrap">
+      <h1 class="title">注册</h1>
+      <el-form :model="regForm" :rules="regRules" ref="regForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="regForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="pass">
+          <el-input type="password" v-model="regForm.pass" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="regForm.checkPass" auto-complete="off"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('regForm')">提交</el-button>
+          <el-button @click="resetForm('regForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <my-footer></my-footer>
   </div>
 </template>
 
@@ -47,8 +47,8 @@
         }, 1000)
       }
       var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'))
+        if (value.length < 6) {
+          callback(new Error('请输入大于等于6位数任意字符的密码'))
         } else {
           if (this.regForm.checkPass !== '') {
             this.$refs.regForm.validateField('checkPass')
@@ -88,9 +88,12 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log('submit!')
+            this.$message({
+              message: '恭喜你，注册成功',
+              type: 'success'
+            })
           } else {
-            console.log('error submit!!')
+            this.$message.error('额。。。注册失败，请重试')
             return false
           }
         })
@@ -98,6 +101,11 @@
       resetForm (formName) {
         this.$refs[formName].resetFields()
       }
+    },
+    components: {
+      'my-header': require('../widget/header.vue'),
+      'my-footer': require('../widget/footer.vue'),
+      'my-slide-nav': require('../widget/slideNav.vue')
     }
   }
 </script>
