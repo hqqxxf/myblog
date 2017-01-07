@@ -46,9 +46,6 @@
         if (value.length < 6) {
           callback(new Error('请输入大于等于6位数任意字符的密码'))
         } else {
-          if (this.regForm.checkPass !== '') {
-            this.$refs.regForm.validateField('checkPass')
-          }
           callback()
         }
       }
@@ -64,20 +61,34 @@
           username: [
             {validator: checkAge, trigger: 'blur'}
           ]
+        },
+        msg: {
+          'success': '恭喜你，登录成功',
+          'error': '登录失败，请重试'
         }
       }
     },
     methods: {
       submitForm (formName) {
-        this.$refs[formName].validate((valid) => {
+        var _this = this
+        _this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$message({
-              message: '恭喜你，登录成功',
-              type: 'success'
+            var url = 'login.json'
+            _this.$http.get(url).then(function (data) {
+              console.log(data)
+              if (data.code) {
+                _this.$message({
+                  message: _this.msg.success,
+                  type: 'success'
+                })
+              } else {
+                _this.$message.error(_this.msg.error)
+              }
+            }, function (err) {
+              _this.$message.error(err.msg)
             })
           } else {
-            this.$message.error('登录失败，请重试')
-            return false
+            _this.$message.error(_this.msg.error)
           }
         })
       },
