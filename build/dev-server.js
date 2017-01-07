@@ -10,7 +10,8 @@ var express = require('express')
 var webpack = require('webpack')
 var opn = require('opn')
 var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+var webpackConfig = require('./webpack.dev.conf');
+
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -68,7 +69,7 @@ devMiddleware.waitUntilValid(function () {
 
 module.exports = app.listen(port, function (err) {
   if (err) {
-    console.log(err)
+    console.log(err);
     return
   }
 
@@ -76,4 +77,5 @@ module.exports = app.listen(port, function (err) {
   if (process.env.NODE_ENV !== 'testing') {
     opn(uri)
   }
-})
+});
+

@@ -59,31 +59,36 @@
 //  assert(true, "Click event bound via curried function.");
 //})
 
-Function.prototype.memoized = function(key){
-  this._values = this._values || {};
-  console.log(this._values);
-  return this._values[key] !== undefined ?
-    this._values[key] :
-    this._values[key] = this.apply(this, arguments);
-}
+// Function.prototype.memoized = function(key){
+//   this._values = this._values || {};
+//   console.log(this._values);
+//   return this._values[key] !== undefined ?
+//     this._values[key] :
+//     this._values[key] = this.apply(this, arguments);
+// }
+//
+// // 这里得memoize就是利用闭包的特性，来隐性的更改了ipPrime的行为
+// Function.prototype.memoize = function(){
+//   var fn = this;                              //#1
+//   return function(){                          //#2
+//     return fn.memoized.apply(fn, arguments);
+//   }
+// }
+//
+// var isPrime = (function ( num ){
+//   var prime = num != 1;
+//   for ( var i = 2; i < num; i++)
+//   {
+//     if (num % i == 0){
+//       prime = false;
+//       break;
+//     }
+//   }
+//   return prime;
+// }).memoize();
+// console.log(isPrime(5));
 
-// 这里得memoize就是利用闭包的特性，来隐性的更改了ipPrime的行为
-Function.prototype.memoize = function(){
-  var fn = this;                              //#1
-  return function(){                          //#2
-    return fn.memoized.apply(fn, arguments);
-  }
-}
 
-var isPrime = (function ( num ){
-  var prime = num != 1;
-  for ( var i = 2; i < num; i++)
-  {
-    if (num % i == 0){
-      prime = false;
-      break;
-    }
-  }
-  return prime;
-}).memoize();
-console.log(isPrime(5));
+var sym = 'a';
+console.log(`your symbol is ${sym}`);
+

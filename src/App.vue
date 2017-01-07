@@ -1,27 +1,20 @@
 <template>
+
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <my-header></my-header>
+    <router-view keep-alive></router-view>
+    <my-footer></my-footer>
+
   </div>
+
 </template>
 
 <script>
-import Hello from './components/Hello'
-
-export default {
-  name: 'app',
-  components: {
-    Hello
+  export default {
+    name: 'App',
+    components: {
+      'my-header': require('./widget/header.vue'),
+      'my-footer': require('./widget/footer.vue')
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
