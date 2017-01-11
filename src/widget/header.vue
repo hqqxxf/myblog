@@ -17,7 +17,6 @@
       <el-menu-item index="4">注册</el-menu-item>
       </router-link>
     </el-menu>
-
   </div>
 </template>
 
