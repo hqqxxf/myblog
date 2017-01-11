@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import App from './App'
 import Login from './login/login'
 import Register from './register/register'
+import Index from './index/index'
+import Home from './home/home'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
@@ -18,11 +22,22 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {
+      path: '/',
+      name: 'index',
+      component: Index
+    },
+    {
+      path: '/home',
+      component: Home
+    },
+    {
       path: '/login',
+      name: 'login',
       component: Login
     },
     {
       path: '/register',
+      name: 'register',
       component: Register
     }
   ]

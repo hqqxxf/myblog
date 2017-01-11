@@ -8,7 +8,7 @@
       <h1 class="title">注册</h1>
       <el-form :model="regForm" :rules="regRules" ref="regForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="regForm.username"></el-input>
+          <el-input data-name="regForm.username" v-model="regForm.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="pass">
           <el-input type="password" v-model="regForm.pass" auto-complete="off"></el-input>
@@ -83,6 +83,8 @@
           ]
         }
       }
+    },
+    complete: {
     },
     methods: {
       submitForm (formName) {
