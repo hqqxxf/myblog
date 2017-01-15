@@ -1,6 +1,7 @@
 var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
+var StringReplacePlugin = require("string-replace-webpack-plugin")
 var projectRoot = path.resolve(__dirname, '../')
 
 var env = process.env.NODE_ENV
@@ -84,9 +85,40 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /env.conf.js$/,
+        loader: StringReplacePlugin.replace({
+          replacements: [
+            {
+              pattern: /{}/ig,
+              replacement: function (match, p1, offset, string) {
+                return JSON.stringify(config.host[process.env.NODE_ENV]);
+              }
+            }
+          ]})
       }
     ]
   },
+  plugins: [
+    new StringReplacePlugin()
+    // // split vendor js into its own file
+    // new webpack
+    //   .optimize
+    //   .CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   chunks: Object.keys(entrys),
+    //   minChunks: function (module, count) {
+    //     // any required modules inside node_modules are extracted to vendor
+    //     return (module.resource && /\.js$/.test(module.resource) && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0)
+    //   }
+    // }),
+    // // extract webpack runtime and module manifest to its own file in order to
+    // // prevent vendor hash from being updated whenever app bundle is updated
+    // new webpack
+    //   .optimize
+    //   .CommonsChunkPlugin({name: 'manifest', chunks: ['vendor']})
+  ],
   eslint: {
     formatter: require('eslint-friendly-formatter')
   },

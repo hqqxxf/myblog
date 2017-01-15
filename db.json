@@ -1,0 +1,25 @@
+{
+  "user": [
+    {
+      "id": "login",
+      "errorCode": "SUCCESS",
+      "code": 0,
+      "desc": "",
+      "result": null
+    },
+    {
+      "id": "sendEmail",
+      "errorCode": "SUCCESS",
+      "code": 0,
+      "desc": "",
+      "result": null
+    },
+    {
+      "id": "register",
+      "errorCode": "SUCCESS",
+      "code": 0,
+      "desc": "",
+      "result": null
+    }
+  ]
+}

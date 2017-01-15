@@ -2,6 +2,23 @@
 var path = require('path')
 
 module.exports = {
+  host: {
+    development: {
+      host: '127.0.0.1',
+      apiHost: 'http://127.0.0.1:3000/',
+      urlHost: 'http://127.0.0.1/'
+    },
+    test: {
+      host: '123.56.123.64',
+      apiHost: 'http://123.56.123.64:8080/',
+      urlHost: 'http://123.56.123.64/'
+    },
+    production: {
+      host: '123.56.123.64',
+      apiHost: 'http://123.56.123.64:8080/',
+      urlHost: 'http://123.56.123.64/'
+    }
+  },
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),

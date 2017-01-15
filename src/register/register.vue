@@ -7,8 +7,14 @@
     <div class="form-wrap">
       <h1 class="title">注册</h1>
       <el-form :model="regForm" :rules="regRules" ref="regForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="用户名" prop="username">
-          <el-input data-name="regForm.username" v-model="regForm.username"></el-input>
+        <el-form-item label="邮箱" prop="email">
+          <el-input type="email" v-model="regForm.email" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="getEmailCode">获取邮箱验证码</el-button>
+        </el-form-item>
+        <el-form-item label="验证码" prop="emailCode">
+          <el-input type="text" v-model="regForm.emailCode" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="pass">
           <el-input type="password" v-model="regForm.pass" auto-complete="off"></el-input>
@@ -28,27 +34,27 @@
 </template>
 
 <script>
+  import API from '../conf/api.conf'
+  import CONST from '../conf/const.conf'
   export default {
     data () {
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('年龄不能为空'))
+      var checkEmail = (rule, value, callback) => {
+        if (!CONST.emailReg.test(value)) {
+          return callback(new Error(this.msg.emailErr))
+        } else {
+          callback()
         }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'))
-          } else {
-            if (value < 18) {
-              callback(new Error('必须年满18岁'))
-            } else {
-              callback()
-            }
-          }
-        }, 1000)
+      }
+      var checkEmailCode = (rule, value, callback) => {
+        if (value.length !== 6) {
+          callback(new Error(this.msg.emailCodeErr))
+        } else {
+          callback()
+        }
       }
       var validatePass = (rule, value, callback) => {
         if (value.length < 6) {
-          callback(new Error('请输入大于等于6位数任意字符的密码'))
+          callback(new Error(this.msg.passErr))
         } else {
           if (this.regForm.checkPass !== '') {
             this.$refs.regForm.validateField('checkPass')
@@ -66,10 +72,20 @@
         }
       }
       return {
+        showCodeInput: false,
         regForm: {
           pass: '',
           checkPass: '',
-          username: ''
+          email: '',
+          emailCode: ''
+        },
+        msg: {
+          emailSendMsg: '验证码已经发送到您的邮箱，请登录查看',
+          success: '恭喜你，注册成功',
+          error: '注册失败，请重试',
+          emailErr: '请输入正确的邮箱',
+          emailCodeErr: '请输入正确的邮箱验证码',
+          passErr: '请输入大于等于6位数任意字符的密码'
         },
         regRules: {
           pass: [
@@ -78,25 +94,59 @@
           checkPass: [
             {validator: validatePass2, trigger: 'blur'}
           ],
-          username: [
-            {validator: checkAge, trigger: 'blur'}
+          email: [
+            {validator: checkEmail, trigger: 'blur'}
+          ],
+          emailCode: [
+            {validator: checkEmailCode, trigger: 'blur'}
           ]
         }
       }
     },
-    complete: {
-    },
+    complete: {},
     methods: {
-      submitForm (formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$message({
-              message: '恭喜你，注册成功',
+      getEmailCode () {
+        var _this = this
+        _this.$http.jsonp(API.getEmailCode, {
+          params: {
+            username: _this.regForm.email
+          }
+        }).then(function (res) {
+          if (!res.data.code) {
+            _this.$message({
+              message: _this.msg.emailSendMsg,
               type: 'success'
             })
+            _this.showCodeInput = true
           } else {
-            this.$message.error('额。。。注册失败，请重试')
-            return false
+            _this.$message.error(res.data.desc)
+          }
+        }, function (err) {
+          _this.$message.error(err.msg)
+        })
+      },
+      submitForm (formName) {
+        var _this = this
+        _this.$refs[formName].validate((valid) => {
+          if (valid) {
+            _this.$http.jsonp(API.login, {
+              params: {
+                username: _this.regForm.email,
+                password: _this.regForm.pass
+              }
+            }).then(function (res) {
+              if (!res.data.code) {
+                _this.$message({
+                  message: _this.msg.success,
+                  type: 'success'
+                })
+                _this.$router.push('/')
+              } else {
+                _this.$message.error(res.data.desc)
+              }
+            }, function (err) {
+              _this.$message.error(err.msg)
+            })
           }
         })
       },
