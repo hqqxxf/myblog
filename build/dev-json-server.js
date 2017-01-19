@@ -18,6 +18,6 @@ server.use(function (req, res, next) {
   next()
 })
 
-server.listen(3000, function () {
+server.listen(3001, function () {
   console.log('JSON Server is running')
 })

@@ -5,7 +5,7 @@ module.exports = {
   host: {
     development: {
       host: '127.0.0.1',
-      apiHost: 'http://127.0.0.1:3000/',
+      apiHost: 'http://127.0.0.1:3001/',
       urlHost: 'http://127.0.0.1/'
     },
     test: {
@@ -35,7 +35,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8081,
+    port: 8088,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {

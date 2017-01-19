@@ -10,9 +10,7 @@ import Home from './home/home'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import env from './conf/env.conf'
-document.domain = env.host
-console.log('domain: ' + document.domain)
+
 // 1. Use plugin.
 // This installs <router-view> and <router-link>,
 // and injects $router and $route to all router-enabled child components
@@ -52,5 +50,4 @@ new Vue({
   el: '#app',
   render: h => h(App)
 })
-// console.log(app)
-// console.log(Login)
+

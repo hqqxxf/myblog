@@ -7,11 +7,11 @@
     <div class="form-wrap">
       <h1 class="title">注册</h1>
       <el-form :model="regForm" :rules="regRules" ref="regForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="邮箱" prop="email">
-          <el-input type="email" v-model="regForm.email" auto-complete="off"></el-input>
+        <el-form-item label="邮箱" prop="emailAddr">
+          <el-input type="text" v-model="regForm.emailAddr" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="getEmailCode">获取邮箱验证码</el-button>
+          <el-button type="primary" :class="{'gray': !canSend}" @click="getEmailCode">{{sendEmailTxt}}</el-button>
         </el-form-item>
         <el-form-item label="验证码" prop="emailCode">
           <el-input type="text" v-model="regForm.emailCode" auto-complete="off"></el-input>
@@ -32,13 +32,19 @@
     <my-footer></my-footer>
   </div>
 </template>
-
+<style scoped>
+  .gray {
+    background-color: #D3DCE6
+  }
+</style>
 <script>
   import API from '../conf/api.conf'
   import CONST from '../conf/const.conf'
+  import CutDown from '../../static/lib/CutDown'
   export default {
     data () {
       var checkEmail = (rule, value, callback) => {
+        console.log(value)
         if (!CONST.emailReg.test(value)) {
           return callback(new Error(this.msg.emailErr))
         } else {
@@ -72,11 +78,12 @@
         }
       }
       return {
-        showCodeInput: false,
+        canSend: true,
+        time: 60,
         regForm: {
           pass: '',
           checkPass: '',
-          email: '',
+          emailAddr: '',
           emailCode: ''
         },
         msg: {
@@ -94,7 +101,7 @@
           checkPass: [
             {validator: validatePass2, trigger: 'blur'}
           ],
-          email: [
+          emailAddr: [
             {validator: checkEmail, trigger: 'blur'}
           ],
           emailCode: [
@@ -103,26 +110,53 @@
         }
       }
     },
-    complete: {},
+    computed: {
+      sendEmailTxt: function () {
+        if (this.canSend) {
+          return '获取邮箱验证码'
+        } else {
+          return this.time + '(s)后可以重新发送'
+        }
+      }
+    },
     methods: {
       getEmailCode () {
         var _this = this
-        _this.$http.jsonp(API.getEmailCode, {
-          params: {
-            username: _this.regForm.email
-          }
-        }).then(function (res) {
-          if (!res.data.code) {
-            _this.$message({
-              message: _this.msg.emailSendMsg,
-              type: 'success'
+        if (!_this.canSend) {
+          return 0
+        }
+        _this.$refs.regForm.validateField('emailAddr', (valid) => {
+          if (!valid) {
+            console.log(valid)
+            _this.$http.jsonp(API.getEmailCode, {
+              params: {
+                username: _this.regForm.emailAddr
+              }
+            }).then(function (res) {
+              if (!res.data.code) {
+                _this.$message({
+                  message: _this.msg.emailSendMsg,
+                  type: 'success'
+                })
+                _this.canSend = false
+                /* eslint-disable no-new */
+                new CutDown({
+                  ts: 1000 * _this.time,
+                  mode: 'en',
+                  cb: function (res) {
+                    _this.time = res
+                  },
+                  end: function () {
+                    _this.canSend = true
+                  }
+                })
+              } else {
+                _this.$message.error(res.data.desc)
+              }
+            }, function (err) {
+              _this.$message.error(err.msg)
             })
-            _this.showCodeInput = true
-          } else {
-            _this.$message.error(res.data.desc)
           }
-        }, function (err) {
-          _this.$message.error(err.msg)
         })
       },
       submitForm (formName) {
@@ -131,8 +165,9 @@
           if (valid) {
             _this.$http.jsonp(API.login, {
               params: {
-                username: _this.regForm.email,
-                password: _this.regForm.pass
+                username: _this.regForm.emailAddr,
+                password: _this.regForm.pass,
+                code: _this.regForm.emailCode
               }
             }).then(function (res) {
               if (!res.data.code) {
