@@ -14,7 +14,6 @@ class CutDown {
     this.now = Date.now()
     if (this._opts.type !== 'res') this.init()
   }
-
   init() {
     let me = this
     let timer = null

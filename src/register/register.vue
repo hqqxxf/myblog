@@ -79,7 +79,7 @@
       }
       return {
         canSend: true,
-        time: 60,
+        time: 59,
         regForm: {
           pass: '',
           checkPass: '',
@@ -127,10 +127,9 @@
         }
         _this.$refs.regForm.validateField('emailAddr', (valid) => {
           if (!valid) {
-            console.log(valid)
             _this.$http.jsonp(API.getEmailCode, {
               params: {
-                username: _this.regForm.emailAddr
+                email: _this.regForm.emailAddr
               }
             }).then(function (res) {
               if (!res.data.code) {
@@ -163,7 +162,7 @@
         var _this = this
         _this.$refs[formName].validate((valid) => {
           if (valid) {
-            _this.$http.jsonp(API.login, {
+            _this.$http.jsonp(API.register, {
               params: {
                 username: _this.regForm.emailAddr,
                 password: _this.regForm.pass,
