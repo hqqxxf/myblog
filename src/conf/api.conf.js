@@ -5,6 +5,14 @@ module.exports = {
   // login
   login: env.apiHost + 'user/login',
   // register
-  register: env.apiHost + 'user/register'
+  register: env.apiHost + 'user/register',
+
+  blogs: env.apiHost + 'blog/all',
+
+  blogDetail: env.apiHost + 'blog/detail',
+
+  delBlog: env.apiHost + 'blog/delete',
+
+  delBlogs: env.apiHost + 'blog/deleteBatch'
 
 }

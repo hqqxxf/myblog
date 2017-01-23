@@ -7,6 +7,7 @@ import Login from './login/login'
 import Register from './register/register'
 import Index from './index/index'
 import Home from './home/home'
+import CreateBlog from './blog/createBlog'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
@@ -17,10 +18,11 @@ import 'element-ui/lib/theme-default/index.css'
 Vue.use(VueRouter)
 Vue.use(ElementUI)
 Vue.use(VueResource)
+require('../static/css/reset.less')
 
 // 3. Create the router
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: __dirname,
   routes: [
     {
@@ -31,6 +33,11 @@ const router = new VueRouter({
     {
       path: '/home',
       component: Home
+    },
+    {
+      path: '/createBlog',
+      name: 'createBlog',
+      component: CreateBlog
     },
     {
       path: '/login',
