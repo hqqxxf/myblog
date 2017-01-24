@@ -4,8 +4,8 @@
     <my-header></my-header>
     <h1 class="title">blog首页</h1>
     <div class="blog-wrap">
-      <el-button type="primary">
-        <router-link :to="{ path: 'createBlog' }">添加博客</router-link>
+      <el-button type="primary" @click="toAddBlog">
+        添加博客
       </el-button>
       <ul class="items">
         <li v-for="blog in blogs">
@@ -24,10 +24,6 @@
 <script>
   import API from '../conf/api.conf'
   export default {
-    components: {
-      'my-header': require('../widget/header.vue'),
-      'my-footer': require('../widget/footer.vue')
-    },
     data () {
       return {
         blogs: []
@@ -37,6 +33,9 @@
       this.getBlogs()
     },
     methods: {
+      toAddBlog: function () {
+        this.$router.push('/createBlog')
+      },
       getBlogs: function () {
         var _this = this
         _this.$http.jsonp(API.blogs)
@@ -50,6 +49,10 @@
             console.log(err)
           })
       }
+    },
+    components: {
+      'my-header': require('../widget/header.vue'),
+      'my-footer': require('../widget/footer.vue')
     }
   }
 </script>

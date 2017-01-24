@@ -1,7 +1,19 @@
-a{
+a {
   text-decoration: none;
   color: #cccccc;
 }
-ul{
+
+ul {
   list-style-type: none;
+}
+
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+.clearfix {
+  &:after {
+    content: '';
+    clear: both;
+  }
 }

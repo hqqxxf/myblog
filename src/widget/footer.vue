@@ -8,8 +8,7 @@
 
 <style lang="less" scoped>
   .footer{
-    position: absolute;
-    bottom: 0;
+
   }
   p{
     text-align: center;
