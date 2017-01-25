@@ -147,6 +147,7 @@
                   },
                   end: function () {
                     _this.canSend = true
+                    _this.time = 59
                   }
                 })
               } else {

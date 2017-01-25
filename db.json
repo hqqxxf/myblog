@@ -74,6 +74,35 @@
       "success": true
     },
     {
+      "id": "save",
+      "code": 200,
+      "message": "success",
+      "data": 1,
+      "success": true
+    },
+    {
+      "id": "detail",
+      "code": 200,
+      "message": "success",
+      "data": {
+        "id": 1,
+        "title": "test1",
+        "createUserId": null,
+        "modifyUserId": null,
+        "blogType": 1,
+        "groupId": null,
+        "isComment": 0,
+        "isCollected": 0,
+        "isRead": 0,
+        "content": "",
+        "validity": 1,
+        "createTime": "2017-1-15 20:10:51",
+        "updateTime": "2017-1-15 20:10:51",
+        "readNum": 1
+      },
+      "success": true
+    },
+    {
       "id": "delete"
     }
   ]

@@ -34,27 +34,45 @@
           <el-button :type="tab==3?'primary': ''" @click="switchTab(3)">普通编辑器</el-button>
         </div>
       </div>
-      <md-blog v-show="tab==1" :html="html"></md-blog>
-      <!--<html-blog v-show="tab==2" :html="html"></html-blog>-->
-      <text-blog v-show="tab==3" :html="html"></text-blog>
+      <md-blog v-show="tab==1" :content="blogInfo"></md-blog>
+      <!--<html-blog v-show="tab==2" :content="blogInfo"></html-blog>-->
+      <text-blog v-show="tab==3" :content="blogInfo"></text-blog>
       <div class="fabu">
-        <el-button type="primary">发布</el-button>
+        <el-button type="primary" @click="submit">发布</el-button>
       </div>
     </div>
     <my-footer></my-footer>
   </div>
 </template>
 <script>
+  import API from '../../src/conf/api.conf'
   export default {
     data () {
       return {
-        html: '',
-        tab: 1
+        tab: 1,
+        blogInfo: {
+          'groupId': '',
+          'title': '',
+          'tagNames': [],
+          'blogType': '',
+          'content': ''
+        }
       }
     },
     methods: {
       switchTab: function (index) {
         this.tab = index
+      },
+      submit: function () {
+        var _this = this
+        _this.$http.jsonp(API.saveBlog, _this.blogInfo).then((res) => {
+          res = res.data
+          if (res.code === 200) {
+            _this.$router.push('/blogDetail')
+          }
+        }, (err) => {
+          console.log(err)
+        })
       }
     },
     components: {

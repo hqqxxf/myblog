@@ -9,6 +9,8 @@ module.exports = {
 
   blogs: env.apiHost + 'blog/all',
 
+  saveBlog: env.apiHost + 'blog/save',
+
   blogDetail: env.apiHost + 'blog/detail',
 
   delBlog: env.apiHost + 'blog/delete',

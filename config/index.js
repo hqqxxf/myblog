@@ -10,12 +10,12 @@ module.exports = {
     },
     test: {
       host: '123.56.123.64',
-      apiHost: 'http://123.56.123.64:8080/',
+      apiHost: 'http://123.56.123.64/',
       urlHost: 'http://123.56.123.64/'
     },
     production: {
       host: '123.56.123.64',
-      apiHost: 'http://123.56.123.64:8080/',
+      apiHost: 'http://123.56.123.64/',
       urlHost: 'http://123.56.123.64/'
     }
   },
