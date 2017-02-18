@@ -3,7 +3,6 @@
     margin: 0;
     height: 100%;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: #333;
   }
 
   textarea, .m-editor div {
@@ -61,9 +60,25 @@
     <div v-html="compiledMarkdown"></div>
   </div>
 </template>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
 <script>
   import marked from 'marked'
+  import highlightjs from 'highlight.js'
+  import 'highlight.js/styles/googlecode.css'
   import _ from 'lodash'
+  marked.options({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code) {
+      return highlightjs.highlightAuto(code).value
+    }
+  })
   export default{
     data () {
       return {
@@ -75,7 +90,7 @@
         if (!this.content || typeof this.content !== 'string') {
           return
         }
-        return marked(this.content, {sanitize: true})
+        return marked(this.content)
       }
     },
     methods: {
@@ -86,6 +101,7 @@
         this.content = e.target.value
         this.$emit('update-content', this.content)
       }, 500)
-    }
+    },
+    components: {marked, highlightjs}
   }
 </script>

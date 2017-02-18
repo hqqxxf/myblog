@@ -46,7 +46,7 @@
         .then((res) => {
           res = res.data
           if (res.code === 200) {
-          	res.data.contentType = 2
+            res.data.contentType = 2
             _this.blogInfo = res.data
           }
         }, (err) => {

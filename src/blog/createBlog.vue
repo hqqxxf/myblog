@@ -82,7 +82,6 @@
           })
       },
       updateContent: function (res) {
-        console.info(res)
         this.blogInfo.content = res
       }
     },
