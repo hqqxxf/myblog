@@ -4,19 +4,19 @@ var path = require('path')
 module.exports = {
   host: {
     development: {
-      host: '127.0.0.1',
-      apiHost: 'http://127.0.0.1:3001/',
-      urlHost: 'http://127.0.0.1/'
+      host: 'localhost',
+      apiHost: 'http://localhost/',
+      urlHost: 'http://localhost/'
     },
     test: {
-      host: '123.56.123.64',
-      apiHost: 'http://123.56.123.64/',
-      urlHost: 'http://123.56.123.64/'
+      host: 'www.byzblog.cn',
+      apiHost: 'http://www.byzblog.cn/',
+      urlHost: 'http://www.byzblog.cn/'
     },
     production: {
-      host: '123.56.123.64',
-      apiHost: 'http://123.56.123.64/',
-      urlHost: 'http://123.56.123.64/'
+      host: 'www.byzblog.cn',
+      apiHost: 'http://www.byzblog.cn/',
+      urlHost: 'http://www.byzblog.cn/'
     }
   },
   build: {
@@ -38,9 +38,7 @@ module.exports = {
     port: 8088,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-
-    },
+    proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

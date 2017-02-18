@@ -34,9 +34,9 @@
           <el-button :type="tab==3?'primary': ''" @click="switchTab(3)">普通编辑器</el-button>
         </div>
       </div>
-      <md-blog v-show="tab==1" :content="blogInfo"></md-blog>
+      <md-blog v-show="tab==1" @update-content="updateContent"></md-blog>
       <!--<html-blog v-show="tab==2" :content="blogInfo"></html-blog>-->
-      <text-blog v-show="tab==3" :content="blogInfo"></text-blog>
+      <text-blog v-show="tab==3" :content="blogInfo.content"></text-blog>
       <div class="fabu">
         <el-button type="primary" @click="submit">发布</el-button>
       </div>
@@ -51,11 +51,12 @@
       return {
         tab: 1,
         blogInfo: {
-          'groupId': '',
+          'groupId': 0,
           'title': '',
           'tagNames': [],
-          'blogType': '',
-          'content': ''
+          'blogType': 1,
+          'content': '',
+          'blogId': ''
         }
       }
     },
@@ -65,7 +66,9 @@
       },
       submit: function () {
         var _this = this
-        _this.$http.jsonp(API.saveBlog, _this.blogInfo).then((res) => {
+        _this.$http.get(API.saveBlog, _this.blogInfo, {
+          method: 'POST'
+        }).then((res) => {
           res = res.data
           if (res.code === 200) {
             _this.$router.push('/blogDetail')
@@ -73,6 +76,10 @@
         }, (err) => {
           console.log(err)
         })
+      },
+      updateContent: function (res) {
+        console.info(res)
+        this.blogInfo.content = res
       }
     },
     components: {

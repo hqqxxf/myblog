@@ -9,7 +9,9 @@
       </el-button>
       <ul class="items">
         <li v-for="blog in blogs">
-          <p class="item-title">{{blog.title}}</p>
+          <a @click="blogDetail(blog.id)">
+            <h2 class="item-title">{{blog.title}}</h2>
+          </a>
           <div class="time">
             <span>{{blog.createTime}}</span>
             <span>上次更新：{{blog.updateTime}}</span>
@@ -48,6 +50,9 @@
           }, (err) => {
             console.log(err)
           })
+      },
+      blogDetail: function (id) {
+        this.$router.push('/blogDetail/' + id)
       }
     },
     components: {

@@ -8,7 +8,7 @@ import Register from './register/register'
 import Index from './index/index'
 import Home from './home/home'
 import CreateBlog from './blog/createBlog'
-import blogDetail from './blog/blogDetail'
+import BlogDetail from './blog/blogDetail'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
@@ -41,8 +41,8 @@ const router = new VueRouter({
       component: CreateBlog
     },
     {
-      path: '/blogDetail',
-      component: blogDetail
+      path: '/blogDetail/:id',
+      component: BlogDetail
     },
     {
       path: '/login',

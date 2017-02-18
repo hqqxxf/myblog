@@ -57,27 +57,35 @@
 </style>
 <template>
   <div class="m-editor">
-    <textarea row="30" :value="input" @input="update"></textarea>
+    <textarea row="30" :value="content" @input="update"></textarea>
     <div v-html="compiledMarkdown"></div>
   </div>
 </template>
 <script>
   import marked from 'marked'
+  import _ from 'lodash'
   export default{
     data () {
       return {
-        input: '# hello'
+        content: ''
       }
     },
     computed: {
       compiledMarkdown: function () {
-        return marked(this.input, {sanitize: true})
+        if (!this.content || typeof this.content !== 'string') {
+          return
+        }
+        return marked(this.content, {sanitize: true})
       }
     },
     methods: {
-      update: function (e) {
-        this.input = e.target.value
-      }
+      update: _.debounce(function (e) {
+        if (!e.target) {
+          return
+        }
+        this.content = e.target.value
+        this.$emit('update-content', this.content)
+      }, 500)
     }
   }
 </script>

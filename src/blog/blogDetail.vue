@@ -25,9 +25,7 @@
     },
     mounted () {
       var _this = this
-      _this.$http.jsonp(API.blogDetail, {
-        blogId: 1
-      })
+      _this.$http.get(API.blogDetail + '?blogId=' + this.$route.params.id)
         .then((res) => {
           res = res.data
           if (res.code === 200) {
