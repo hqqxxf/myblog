@@ -40,12 +40,11 @@
       },
       getBlogs: function () {
         var _this = this
-        _this.$http.jsonp(API.blogs)
+        _this.$http.get(API.blogs)
           .then((res) => {
             res = res.data
             if (res.code === 200) {
               _this.blogs = res.data
-              console.log(_this.blogs)
             }
           }, (err) => {
             console.log(err)

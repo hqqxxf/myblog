@@ -21,6 +21,10 @@
     color: #1d90e6;
     border-color: #1d90e6;
   }
+
+  .title-input {
+    padding-bottom: 30px;
+  }
 </style>
 <template>
   <div>
@@ -34,6 +38,7 @@
           <el-button :type="tab==3?'primary': ''" @click="switchTab(3)">普通编辑器</el-button>
         </div>
       </div>
+      <el-input class="title-input" type="text" v-model="blogInfo.title" placeholder="标题"></el-input>
       <md-blog v-show="tab==1" @update-content="updateContent"></md-blog>
       <!--<html-blog v-show="tab==2" :content="blogInfo"></html-blog>-->
       <text-blog v-show="tab==3" :content="blogInfo.content"></text-blog>
@@ -66,16 +71,15 @@
       },
       submit: function () {
         var _this = this
-        _this.$http.get(API.saveBlog, _this.blogInfo, {
-          method: 'POST'
-        }).then((res) => {
-          res = res.data
-          if (res.code === 200) {
-            _this.$router.push('/blogDetail')
-          }
-        }, (err) => {
-          console.log(err)
-        })
+        _this.$http.post(API.saveBlog, _this.blogInfo)
+          .then((res) => {
+            res = res.data
+            if (res.code === 200) {
+              _this.$router.push('/blogDetail/' + res.data)
+            }
+          }, (err) => {
+            console.info('Internet error', err)
+          })
       },
       updateContent: function (res) {
         console.info(res)
