@@ -33,15 +33,15 @@
       <div class="header clearfix">
         <h1 class="title">编写博客</h1>
         <div class="float-p">
-          <el-button :type="blogInfo.contentType==0?'primary': ''" @click="switchTab(0)">markdown编辑器</el-button>
+          <el-button :type="blogInfo.contentType==2?'primary': ''" @click="switchTab(2)">markdown编辑器</el-button>
           <!--<el-button :type="tab==2?'primary': ''" @click="switchTab(2)">html编辑器</el-button>-->
-          <el-button :type="blogInfo.contentType==2?'primary': ''" @click="switchTab(2)">普通编辑器</el-button>
+          <el-button :type="blogInfo.contentType==0?'primary': ''" @click="switchTab(0)">普通编辑器</el-button>
         </div>
       </div>
       <el-input class="title-input" type="text" v-model="blogInfo.title" placeholder="标题"></el-input>
-      <md-blog v-show="blogInfo.contentType==0" @update-content="updateContent"></md-blog>
+      <md-blog v-show="blogInfo.contentType==2" @update-content="updateContent"></md-blog>
       <!--<html-blog v-show="tab==2" :content="blogInfo"></html-blog>-->
-      <text-blog v-show="blogInfo.contentType==2" :content="blogInfo.content"></text-blog>
+      <text-blog v-show="blogInfo.contentType==0" :content="blogInfo.content"></text-blog>
       <div class="fabu">
         <el-button type="primary" @click="submit">发布</el-button>
       </div>
@@ -61,7 +61,7 @@
           'blogType': 1,
           'content': '',
           'blogId': '',
-          'contentType': 0
+          'contentType': 2
         }
       }
     },
