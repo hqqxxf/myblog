@@ -9,9 +9,28 @@ import Index from './index/index'
 import Home from './home/home'
 import CreateBlog from './blog/createBlog'
 import BlogDetail from './blog/blogDetail'
-
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+
+import marked from 'marked'
+import highlightjs from 'highlight.js'
+import 'highlight.js/styles/googlecode.css'
+marked.options({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false,
+  highlight: function (code) {
+    return highlightjs.highlightAuto(code).value
+  }
+})
+Vue.filter('marked', function (input) {
+  return marked(input)
+})
 // 1. Use plugin.
 // This installs <router-view> and <router-link>,
 // and injects $router and $route to all router-enabled child components
@@ -19,6 +38,7 @@ Vue.use(VueRouter)
 Vue.use(ElementUI)
 Vue.use(VueResource)
 // Vue.use(marked)
+// Vue.use(highlightjs)
 require('../static/css/reset.less')
 
 // 3. Create the router

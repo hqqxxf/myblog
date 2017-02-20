@@ -62,10 +62,10 @@
 </template>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
 <script>
+  import _ from 'lodash'
   import marked from 'marked'
   import highlightjs from 'highlight.js'
   import 'highlight.js/styles/googlecode.css'
-  import _ from 'lodash'
   marked.options({
     renderer: new marked.Renderer(),
     gfm: true,
