@@ -39,7 +39,7 @@
         </div>
       </div>
       <el-input class="title-input" type="text" v-model="blogInfo.title" placeholder="标题"></el-input>
-      <md-blog v-show="blogInfo.contentType==2" @update-content="updateContent"></md-blog>
+      <md-blog v-show="blogInfo.contentType==2" @update-content="updateContent" :super-content="blogInfo.content"></md-blog>
       <!--<html-blog v-show="tab==2" :content="blogInfo"></html-blog>-->
       <text-blog v-show="blogInfo.contentType==0" :content="blogInfo.content"></text-blog>
       <div class="fabu">
@@ -63,6 +63,19 @@
           'blogId': '',
           'contentType': 2
         }
+      }
+    },
+    mounted () {
+      if (this.$route.params.id) {
+        this.$http.get(API.blogDetail + '?blogId=' + this.$route.params.id)
+          .then((res) => {
+            res = res.data
+            if (res.code === 200) {
+              this.blogInfo = res.data
+            }
+          }, (err) => {
+            console.log(err)
+          })
       }
     },
     methods: {

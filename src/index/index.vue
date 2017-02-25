@@ -12,11 +12,20 @@
           <a @click="blogDetail(blog.id)">
             <h2 class="item-title">{{blog.title}}</h2>
           </a>
+          <el-button :plain="true" :size="small" @click="editBlog(blog.id)">编辑</el-button>
           <div class="time">
-            <span>{{blog.createTime}}</span>
-            <span>上次更新：{{blog.updateTime}}</span>
+            <span>{{blog.updateTime}}</span>
           </div>
         </li>
+        <div class="block">
+          <el-pagination
+            v-show="page.total > 0"
+            layout="prev, pager, next"
+            :current-page="page.pageNo"
+            :total="page.total"
+            @current-change="changePage">
+          </el-pagination>
+        </div>
       </ul>
     </div>
     <my-footer></my-footer>
@@ -28,7 +37,13 @@
   export default {
     data () {
       return {
-        blogs: []
+        blogs: [],
+        page: {
+          pageNo: 1,
+          pageLength: 10,
+          total: 0
+        }
+
       }
     },
     mounted () {
@@ -40,18 +55,26 @@
       },
       getBlogs: function () {
         var _this = this
-        _this.$http.get(API.blogs)
+        var url = API.blogs
+        url += '/' + this.page.pageNo
+        _this.$http.get(url)
           .then((res) => {
             res = res.data
             if (res.code === 200) {
-              _this.blogs = res.data
+              _this.blogs = res.data.blogList
+              _this.page = res.data.page
             }
-          }, (err) => {
-            console.log(err)
           })
+      },
+      editBlog: function (id) {
+        this.$router.push('/createBlog/' + id)
       },
       blogDetail: function (id) {
         this.$router.push('/blogDetail/' + id)
+      },
+      changePage: function (pageNo) {
+        this.page.pageNo = pageNo
+        this.getBlogs()
       }
     },
     components: {

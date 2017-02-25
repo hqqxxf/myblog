@@ -1,6 +1,5 @@
 <template>
   <div class="footer">
-    <p>博客github地址：</p>
   </div>
 </template>
 

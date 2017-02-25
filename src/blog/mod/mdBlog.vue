@@ -80,17 +80,24 @@
     }
   })
   export default{
+    props: ['superContent'],
     data () {
       return {
-        content: ''
+        content: this.superContent,
+        compiledMarkdown: ''
       }
     },
-    computed: {
-      compiledMarkdown: function () {
+    computed: {},
+    watch: {
+      content: function (val) {
         if (!this.content || typeof this.content !== 'string') {
           return
         }
-        return marked(this.content)
+        this.content = val
+        this.compiledMarkdown = marked(this.content)
+      },
+      superContent: function (val) {
+        this.content = val
       }
     },
     methods: {
