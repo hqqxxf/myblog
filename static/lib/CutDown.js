@@ -1,6 +1,3 @@
-/**
- * Created by 58 on 2016/11/7.
- */
 class CutDown {
   constructor(options) {
     this._default = {
@@ -14,6 +11,7 @@ class CutDown {
     this.now = Date.now()
     if (this._opts.type !== 'res') this.init()
   }
+  
   init() {
     let me = this
     let timer = null
@@ -29,27 +27,27 @@ class CutDown {
       }
     }, 1000)
   }
-
+  
   // get left day
   getLeftDay() {
     return Math.floor(this._opts.ts / (1000 * 60 * 60 * 24))
   }
-
+  
   // get left Hour
   getLeftHour() {
     return Math.floor(this._opts.ts % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
   }
-
+  
   // get left minutes
   getLeftMinutes() {
     return Math.floor((this._opts.ts % (1000 * 60 * 60)) / (1000 * 60))
   }
-
+  
   // get left seconds
   getLeftSeconds() {
     return Math.floor((this._opts.ts % (1000 * 60)) / (1000))
   }
-
+  
   getRes() {
     let res = ''
     let Day = this.getLeftDay()
@@ -65,7 +63,7 @@ class CutDown {
     }
     return res
   }
-
+  
   addPrefix(num) {
     return num > 9 ? num : '0' + num
   }

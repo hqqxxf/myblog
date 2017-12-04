@@ -19,7 +19,7 @@
         </li>
         <div class="block">
           <el-pagination
-            v-show="page.total > 0"
+            v-show="page.total > 10"
             layout="prev, pager, next"
             :current-page="page.pageNo"
             :total="page.total"
@@ -46,7 +46,7 @@
 
       }
     },
-    mounted () {
+    beforeMounted () {
       this.getBlogs()
     },
     methods: {
