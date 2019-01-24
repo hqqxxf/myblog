@@ -2,6 +2,23 @@
 var path = require('path')
 
 module.exports = {
+  host: {
+    development: {
+      host: 'localhost',
+      apiHost: 'http://localhost/',
+      urlHost: 'http://localhost/'
+    },
+    test: {
+      host: 'www.byzblog.cn',
+      apiHost: 'http://www.byzblog.cn/',
+      urlHost: 'http://www.byzblog.cn/'
+    },
+    production: {
+      host: 'www.byzblog.cn',
+      apiHost: 'http://www.byzblog.cn/',
+      urlHost: 'http://www.byzblog.cn/'
+    }
+  },
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
@@ -13,17 +30,15 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    productionGzip: true,
     productionGzipExtensions: ['js', 'css']
   },
   dev: {
     env: require('./dev.env'),
-    port: 8081,
+    port: 8088,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-
-    },
+    proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

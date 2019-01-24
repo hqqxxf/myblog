@@ -1,6 +1,7 @@
 var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
+var StringReplacePlugin = require("string-replace-webpack-plugin")
 var projectRoot = path.resolve(__dirname, '../')
 
 var env = process.env.NODE_ENV
@@ -26,7 +27,8 @@ module.exports = {
       'vue$': 'vue/dist/vue.common.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'widget': path.resolve(__dirname, '../src/widget')
     }
   },
   resolveLoader: {
@@ -83,16 +85,32 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /env.conf.js$/,
+        loader: StringReplacePlugin.replace({
+          replacements: [
+            {
+              pattern: /{}/ig,
+              replacement: function (match, p1, offset, string) {
+                return JSON.stringify(config.host[process.env.NODE_ENV]);
+              }
+            }
+          ]
+        })
       }
     ]
   },
+  plugins: [
+    new StringReplacePlugin()
+  ],
   eslint: {
     formatter: require('eslint-friendly-formatter')
   },
   vue: {
-    loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
+    loaders: utils.cssLoaders({sourceMap: useCssSourceMap}),
     postcss: [
-      require('autoprefixer')({
+      require('autoprefixer')({ // 解析css的
         browsers: ['last 2 versions']
       })
     ]

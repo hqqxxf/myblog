@@ -1,5 +1,5 @@
-var semver = require('semver')
-var chalk = require('chalk')
+var semver = require('semver') // 检查版本的
+var chalk = require('chalk') // 给字加色彩的
 var packageConfig = require('../package.json')
 var exec = function (cmd) {
   return require('child_process')
@@ -30,7 +30,7 @@ module.exports = function () {
       )
     }
   }
-
+  
   if (warnings.length) {
     console.log('')
     console.log(chalk.yellow('To use this template, you must update following to modules:'))

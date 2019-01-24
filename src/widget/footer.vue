@@ -1,23 +1,15 @@
 <template>
-  <div class="header">
-    <div class="nav">
-      footer
-    </div>
+  <div class="footer">
   </div>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
-<style scoped>
+<style lang="less" scoped>
+  .footer{
 
-  ul {
-    list-style-type: none;
-    padding: 0;
   }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
+  p{
+    text-align: center;
   }
-
 </style>

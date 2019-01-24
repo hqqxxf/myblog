@@ -1,0 +1,109 @@
+{
+  "user": [
+    {
+      "id": "login",
+      "errorCode": "SUCCESS",
+      "code": 0,
+      "desc": "",
+      "result": null
+    },
+    {
+      "id": "sendEmail",
+      "errorCode": "SUCCESS",
+      "code": 0,
+      "desc": "",
+      "result": null
+    },
+    {
+      "id": "register",
+      "errorCode": "SUCCESS",
+      "code": 0,
+      "desc": "",
+      "result": null
+    }
+  ],
+  "blog": [
+    {
+      "id": "all",
+      "code": 200,
+      "message": "success",
+      "data": [
+        {
+          "id": 1,
+          "title": "test1",
+          "createUserId": 0,
+          "modifyUserId": 0,
+          "blogType": 1,
+          "groupId": 2,
+          "isComment": 0,
+          "isCollected": 0,
+          "isRead": 0,
+          "validity": 1,
+          "createTime": "2017-1-15 10:00:25",
+          "updateTime": "2017-1-16 20:00:25"
+        },
+        {
+          "id": 2,
+          "title": "test2",
+          "createUserId": 0,
+          "modifyUserId": 0,
+          "blogType": 1,
+          "groupId": 2,
+          "isComment": 0,
+          "isCollected": 0,
+          "isRead": 0,
+          "validity": 1,
+          "createTime": "2017-1-15 20:00:25",
+          "updateTime": "2017-1-15 20:00:25"
+        },
+        {
+          "id": 3,
+          "title": "test3",
+          "createUserId": 0,
+          "modifyUserId": 0,
+          "blogType": 1,
+          "groupId": 2,
+          "isComment": 0,
+          "isCollected": 0,
+          "isRead": 0,
+          "validity": 1,
+          "createTime": "2017-1-15 20:00:25",
+          "updateTime": "2017-1-15 20:00:25"
+        }
+      ],
+      "success": true
+    },
+    {
+      "id": "save",
+      "code": 200,
+      "message": "success",
+      "data": 1,
+      "success": true
+    },
+    {
+      "id": "detail",
+      "code": 200,
+      "message": "success",
+      "data": {
+        "id": 1,
+        "title": "test1",
+        "createUserId": null,
+        "modifyUserId": null,
+        "blogType": 1,
+        "groupId": null,
+        "isComment": 0,
+        "isCollected": 0,
+        "isRead": 0,
+        "content": "",
+        "validity": 1,
+        "createTime": "2017-1-15 20:10:51",
+        "updateTime": "2017-1-15 20:10:51",
+        "readNum": 1
+      },
+      "success": true
+    },
+    {
+      "id": "delete"
+    }
+  ]
+}
